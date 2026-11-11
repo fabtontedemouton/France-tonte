@@ -1,0 +1,11 @@
+SHEARING FRANCE V6.3 — DOSSIER COMPLET
+
+1) Extraire cette archive.
+2) Ouvrir le dossier Shearing-France-Android-V6.3-GitHub.
+3) Envoyer à la racine du dépôt GitHub le contenu du dossier, pas le dossier parent et pas le ZIP.
+4) Inclure www, package.json, capacitor.config.json, les fichiers README et le dossier .github.
+5) Si le gestionnaire Android masque .github, ne pas oublier de créer sur GitHub le fichier .github/workflows/android-apk.yml en utilisant le contenu de WORKFLOW-GITHUB-A-CREER.txt.
+
+Le dossier android natif est généré automatiquement par le workflow via Capacitor.
+La compilation produit un APK de test (debug), pas un APK signé pour publication.
+Les résultats de l’application restent locaux : aucun backend multi-utilisateur n’est inclus.
