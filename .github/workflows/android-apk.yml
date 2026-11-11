@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download project
+      - name: Checkout project
         uses: actions/checkout@v4
 
       - name: Install Node.js
@@ -30,36 +30,28 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      - name: Check project files
+      - name: Verify project
         run: |
           test -f package.json
-          test -f index.html
           test -f capacitor.config.json
+          test -f www/index.html
+          test -f www/sw.js
+          test -f www/shearing-logo.svg
 
       - name: Install dependencies
         run: npm install
 
-      - name: Prepare web files
-        run: |
-          mkdir -p www
-          cp index.html www/
-          cp sw.js www/
-          cp shearing-logo.svg www/
-          cp manifest.webmanifest www/
-          cp moutons-prairie.png www/
-          cp VERSION.txt www/
-
       - name: Generate Android project
         run: npx cap add android
 
-      - name: Synchronize Android project
+      - name: Synchronize Android
         run: npx cap sync android
 
-      - name: Compile APK
+      - name: Build APK
         working-directory: android
         run: ./gradlew assembleDebug
 
-      - name: Save APK
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: Shearing-France-APK
