@@ -1,7 +1,7 @@
 {
   "appId": "fr.shearingfrance.app",
   "appName": "Shearing France",
-  "webDir": ".",
+  "webDir": "www",
   "bundledWebRuntime": false,
   "android": {
     "allowMixedContent": false
