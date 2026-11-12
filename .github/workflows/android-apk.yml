@@ -1,9 +1,9 @@
 
-name: Build Shearing France Signed AAB
+name: Build Shearing France Android
 
 on:
   push:
-    branches: [principal]
+    branches: [principal, main]
   workflow_dispatch:
 
 permissions:
@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   build:
-    name: Build signed Android App Bundle
+    name: Build signed Android APK and AAB
     runs-on: ubuntu-latest
 
     steps:
@@ -79,13 +79,13 @@ jobs:
               }
           """
 
-          if "signingConfigs {" not in s:
+          if "signingConfigs" not in s:
               if "buildTypes {" not in s:
                   raise SystemExit("Bloc buildTypes introuvable")
               s = s.replace("buildTypes {", signing + "\n    buildTypes {", 1)
 
           pattern = r"(buildTypes\s*\{\s*release\s*\{)"
-          s, count = re.subn(
+          s, count = re.sub(
               pattern,
               r"\1\n            signingConfig signingConfigs.release",
               s,
@@ -93,7 +93,7 @@ jobs:
           )
 
           if count != 1:
-              raise SystemExit("Bloc release introuvable")
+              raise SystemExit("Configuration release introuvable")
 
           p.write_text(s)
           PY
@@ -109,8 +109,20 @@ jobs:
       - name: Upload signed AAB
         uses: actions/upload-artifact@v4
         with:
-          name: Shearing-France-AAB-SIGNED
+          name: Shearing-France-AAB
           path: android/app/build/outputs/bundle/release/app-release.aab
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Build signed APK
+        working-directory: android
+        run: ./gradlew assembleRelease
+
+      - name: Upload signed APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Shearing-France-APK
+          path: android/app/build/outputs/apk/release/app-release.apk
           if-no-files-found: error
           retention-days: 90
           
