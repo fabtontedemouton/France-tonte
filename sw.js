@@ -1,5 +1,5 @@
-const CACHE_NAME = "shearing-france-v6-3";
-const SHELL = ["./", "./index.html", "./manifest.webmanifest", "./shearing-logo.svg", "./moutons-prairie.png"];
+const CACHE_NAME = "shearing-france-v8-2-3";
+const SHELL = ["./", "./index.html", "./manifest.webmanifest", "./shearing-logo.svg", "./moutons-prairie.png", "./atm-logo.png"];
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(SHELL)).then(() => self.skipWaiting()));
 });

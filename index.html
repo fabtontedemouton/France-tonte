@@ -7,7 +7,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="shearing-logo.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="shearing-logo.svg">
-<title>Shearing France — Version 6.2</title>
+<title>Shearing France — Version 8.2.3</title>
 <style>
 :root{--navy:#050505;--navy2:#111;--gold:#d7ad54;--cream:#f5f2eb;--ink:#f4f0e8;--muted:#aaa;--line:#292929;--green:#16845b;--red:#c44747}
 *{box-sizing:border-box}body{margin:0;background:#050505;color:var(--ink);font:15px/1.45 Inter,system-ui,Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}.shell{max-width:1180px;margin:auto;padding:18px}.hero{background:linear-gradient(120deg,#101a30,#263b5c);color:white;border-radius:20px;padding:24px;display:flex;justify-content:space-between;gap:20px;align-items:center}.brand{display:flex;align-items:center;gap:12px}.logo{background:var(--gold);color:#172238;border-radius:12px;padding:12px;font-size:25px}.eyebrow{letter-spacing:.13em;text-transform:uppercase;font-size:11px;color:#c8d1df}.hero h1{margin:3px 0;font-size:clamp(25px,4vw,38px)}.hero p{margin:4px 0;color:#d4dcea}.stats{display:flex;gap:10px;flex-wrap:wrap}.stat{background:#ffffff13;border:1px solid #ffffff22;padding:12px 16px;border-radius:12px;min-width:100px}.stat b{display:block;font-size:25px;color:#f0cc86}.stat span{font-size:12px;color:#d5deeb}.nav{display:flex;gap:7px;overflow:auto;padding:14px 0}.nav button{border:1px solid #252525;background:#101010;color:#ddd;border-radius:10px;padding:10px 15px;white-space:nowrap;font-weight:650}.nav button.active{background:#d7ad54;color:#080808}.layout{display:grid;grid-template-columns:1fr 320px;gap:16px}.panel,.card{background:#101010;border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 3px 12px #17223808}.panel h2,.card h3{margin:0 0 12px}.muted{color:var(--muted)}.small{font-size:12px}.tag{display:inline-block;padding:4px 8px;border-radius:30px;background:#edf1f6;color:#46546a;font-size:11px;font-weight:700}.tag.green{background:#e4f5ed;color:#14744f}.tag.gold{background:#f8f0df;color:#8b6423}.tag.red{background:#fdeaea;color:#a43636}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.btn{border:0;border-radius:10px;background:var(--navy);color:white;padding:10px 14px;font-weight:700}.btn.gold{background:var(--gold);color:#172238}.btn.ghost{background:#eef1f5;color:#27364e}.btn.danger{background:#a93636}.field{display:grid;gap:5px;margin:10px 0}.field label{font-size:12px;font-weight:750;color:#526176}.field input,.field select,.field textarea{width:100%;padding:10px;border:1px solid #333;border-radius:9px;background:#080808;color:var(--ink)}.field textarea{min-height:80px}.list{display:grid;gap:8px}.item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}.rank{width:28px;height:28px;border-radius:8px;background:#eef1f5;display:grid;place-items:center;font-weight:800}.grow{flex:1;min-width:0}.grow b{display:block}.rating{font-size:20px;font-weight:900;color:#9b742e}.bar{height:8px;background:#edf0f4;border-radius:10px;overflow:hidden}.bar i{display:block;height:100%;background:var(--gold);border-radius:10px}.hidden{display:none!important}.metric{display:grid;grid-template-columns:1fr 42px;gap:8px;align-items:center;margin:12px 0}.metric .bar{grid-column:1/3}.event{border:1px solid var(--line);border-radius:13px;padding:14px}.event h3{margin:7px 0}.table{width:100%;border-collapse:collapse}.table th,.table td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);font-size:13px}.table th{color:#66758b;font-size:11px;text-transform:uppercase}.notice{padding:11px;border-radius:10px;background:#fff6e6;color:#78551c;font-size:12px}.success{padding:11px;border-radius:10px;background:#e8f7ef;color:#176846;font-size:13px}.footer{text-align:center;color:#8a95a5;font-size:11px;padding:25px}.photo-preview{max-width:100%;max-height:220px;border-radius:10px;display:block;margin:10px 0}.pill{border:1px solid var(--line);border-radius:20px;padding:5px 9px;font-size:11px}
@@ -572,16 +572,76 @@ body{background:radial-gradient(ellipse at 70% -20%,#1c2717 0%,#080a08 48%);colo
  .sf-ocr-edit-head,.sf-ocr-edit-row{min-width:560px}
 }
 
+
+/* V8.1 — décalage mobile renforcé : laisse un vrai espace sous la barre d'état Android */
+@media (max-width: 900px) {
+  body { padding-top: 0 !important; }
+  .shell { padding-top: calc(env(safe-area-inset-top, 0px) + 76px) !important; }
+}
+@media (min-width: 901px) {
+  .shell { padding-top: 18px; }
+}
+
+.logo{display:grid!important;place-items:center!important;padding:0!important;width:62px!important;height:62px!important;background:#080808!important;border-radius:12px!important;overflow:hidden!important}
+.logo img{display:block;width:100%;height:100%;object-fit:contain}
+.atm-mark{display:grid!important;place-items:center!important;overflow:hidden!important;width:64px!important;height:64px!important;border:0!important;border-radius:10px!important;background:#080808!important;padding:2px!important}
+.atm-mark img{display:block;width:100%;height:100%;object-fit:contain}
+@media(max-width:800px){.logo{width:58px!important;height:58px!important}.atm-mark{width:58px!important;height:58px!important}}
+
+/* V8.2.2 — navigation escamotable : page pleine largeur + menu hamburger */
+.shell{display:block!important;max-width:1580px!important;width:100%!important;padding:22px!important}
+.shell>.hero{position:relative!important;padding-left:88px!important;width:100%!important}
+.shell>main{display:block!important;width:100%!important;max-width:none!important;min-width:0!important}
+.sf-menu-toggle{position:absolute;z-index:1202;left:20px;top:50%;transform:translateY(-50%);width:48px;height:48px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;border:1px solid #4a563d;border-radius:12px;background:#111810;color:#f3f0e6;cursor:pointer;box-shadow:0 5px 18px #0005}
+.sf-menu-toggle span{display:block;width:22px;height:2px;border-radius:3px;background:#d9bd70;transition:transform .2s,opacity .2s}
+.sf-menu-toggle:hover{background:#202a1b;border-color:#a7c45b}
+.sf-menu-backdrop{position:fixed;inset:0;z-index:1198;border:0;background:rgba(0,0,0,.62);opacity:0;visibility:hidden;transition:opacity .22s,visibility .22s;cursor:pointer}
+.shell>.nav.sf-main-side{position:fixed!important;z-index:1200!important;left:0!important;top:0!important;bottom:0!important;width:min(320px,86vw)!important;height:100dvh!important;max-height:none!important;margin:0!important;padding:22px 16px!important;overflow-y:auto!important;display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:5px!important;border:1px solid #35402d!important;border-left:0!important;border-radius:0 18px 18px 0!important;background:#0b100b!important;box-shadow:18px 0 55px #0009!important;transform:translateX(-105%);visibility:hidden;transition:transform .24s ease,visibility .24s ease}
+.sf-menu-open .shell>.nav.sf-main-side{transform:translateX(0);visibility:visible}
+.sf-menu-open .sf-menu-backdrop{opacity:1;visibility:visible}
+.sf-menu-open{overflow:hidden}
+.sf-main-side .sf-side-title{display:block!important}
+.sf-main-side .sf-nav-group,.sf-main-side .sf-nav-foot{display:block!important}
+.sf-main-side .sf-side-item{width:100%!important;min-height:46px!important;flex:0 0 auto!important;flex-direction:row!important;justify-content:flex-start!important;align-items:center!important;gap:11px!important;padding:10px 12px!important;text-align:left!important;white-space:normal!important}
+.sf-main-side .sf-side-item b{flex:0 0 24px!important;width:24px!important;font-size:17px!important}
+.sf-main-side .sf-side-item span{font-size:13px!important;text-align:left!important;overflow-wrap:normal!important}
+@media(max-width:720px){
+ .shell{display:block!important;padding:10px!important;gap:0!important}
+ .shell>.hero{display:block!important;margin:0 0 10px!important;padding:14px 12px 14px 76px!important;min-height:90px!important}
+ .shell>.hero .stats{margin-top:12px!important}
+ .sf-menu-toggle{left:14px!important;top:25px!important;transform:none!important;width:46px!important;height:46px!important}
+ .shell>.nav.sf-main-side{order:initial!important;width:min(320px,88vw)!important;top:0!important;bottom:0!important;height:100dvh!important;max-height:none!important;display:flex!important;flex-direction:column!important;overflow-y:auto!important;overflow-x:hidden!important;padding:20px 14px!important}
+ .sf-main-side .sf-side-title{display:block!important}
+ .sf-main-side .sf-nav-group,.sf-main-side .sf-nav-foot{display:block!important}
+ .sf-main-side .sf-side-item{min-height:46px!important;flex-direction:row!important;justify-content:flex-start!important;align-items:center!important;text-align:left!important;padding:10px 12px!important}
+ .sf-main-side .sf-side-item b{font-size:17px!important;width:24px!important}
+ .sf-main-side .sf-side-item span{font-size:13px!important;text-align:left!important}
+ .shell>main{order:initial!important;width:100%!important}
+}
+@media(max-width:390px){.shell>.hero{padding-left:70px!important}.sf-menu-toggle{left:11px!important}}
+
 </style></head>
 <body><div class="shell">
 <header class="hero">
- <div><div class="brand"><div class="logo">✂</div><div><div class="eyebrow">COMPÉTITIONS · RÉSULTATS · FORMATIONS</div><h1>SHEARING FRANCE</h1></div></div>
+ <button type="button" class="sf-menu-toggle" id="sfMenuToggle" aria-label="Ouvrir le menu" aria-controls="nav" aria-expanded="false"><span></span><span></span><span></span></button>
+ <div><div class="brand"><div class="logo" aria-label="Logo de l’Association des Tondeurs de Moutons"><img src="atm-logo.png" alt="Logo ATM"></div><div><div class="eyebrow">COMPÉTITIONS · RÉSULTATS · FORMATIONS</div><h1>SHEARING FRANCE</h1></div></div>
  <a class="atm-brand" href="https://tondeursdemoutons.fr/" target="_blank" rel="noopener" aria-label="Association des Tondeurs de Moutons, site officiel">
-   <span class="atm-mark">ATM</span><span class="atm-name">ASSOCIATION DES<br>TONDEURS DE MOUTONS</span>
+   <span class="atm-mark"><img src="atm-logo.png" alt="Logo ATM"></span><span class="atm-name">ASSOCIATION DES<br>TONDEURS DE MOUTONS</span>
  </a><p>La plateforme des compétitions de tonte — France & international</p></div>
- <div class="stats"><div class="stat"><b id="eventCount">0</b><span>Compétitions</span></div><div class="stat"><b id="riderCount">0</b><span>Compétiteurs</span></div><div class="stat"><b>V6.3</b><span>Version</span></div></div>
+ <div class="stats"><div class="stat"><b id="eventCount">0</b><span>Compétitions</span></div><div class="stat"><b id="riderCount">0</b><span>Compétiteurs</span></div><div class="stat"><b>V8.2.3</b><span>Version</span></div></div>
 </header>
-<nav class="nav sf-main-side" id="nav" aria-label="Navigation principale">
+<section id="sfCloudPanel" class="panel" style="margin:14px 0;border-color:#6d572e">
+ <div class="row" style="flex-wrap:wrap"><div><b>Compte & synchronisation</b><div id="sfCloudStatus" class="small muted">Connexion au service partagé en attente…</div></div><span id="sfRoleBadge" class="tag gold">Visiteur</span></div>
+ <div id="sfAuthControls" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-top:10px">
+  <input id="sfAuthEmail" type="email" autocomplete="email" placeholder="Adresse e-mail" style="padding:10px;border-radius:8px;border:1px solid #444;background:#080808;color:#fff">
+  <input id="sfAuthPassword" type="password" autocomplete="current-password" placeholder="Mot de passe" style="padding:10px;border-radius:8px;border:1px solid #444;background:#080808;color:#fff">
+  <button class="btn gold" id="sfLogin">Se connecter</button><button class="btn ghost" id="sfSignup">Créer un compte</button>
+ </div>
+ <div id="sfSignedControls" class="row" style="display:none;flex-wrap:wrap;margin-top:10px"><span id="sfSignedEmail" class="small"></span><div style="display:flex;gap:8px"><button class="btn gold" id="sfSync">Synchroniser</button><button class="btn ghost" id="sfLogout">Déconnexion</button></div></div>
+ <p class="small muted" style="margin:8px 0 0">Les concours, résultats et fiches restent consultables sans compte. Un compte est nécessaire pour contribuer. Les modifications sont limitées à tes propres contributions, sauf pour l’administrateur.</p>
+</section>
+<button type="button" class="sf-menu-backdrop" id="sfMenuBackdrop" aria-label="Fermer le menu" tabindex="-1"></button>
+<nav class="nav sf-main-side" id="nav" aria-label="Navigation principale" aria-hidden="true">
  <div class="sf-side-title">SHEARING FRANCE <small>Votre espace tonte</small></div>
  <div class="sf-nav-group">DÉCOUVRIR</div>
  <button class="sf-side-item active" data-page="home"><b>⌂</b><span>Accueil</span></button>
@@ -696,7 +756,7 @@ body{background:radial-gradient(ellipse at 70% -20%,#1c2717 0%,#080a08 48%);colo
 <div class="field"><label>Disciplines / catégories</label><input id="newEventDisciplines" placeholder="Open, Senior, Junior, agneaux…"></div>
 <div class="field"><label>Site ou lien d'inscription</label><input id="newEventUrl" type="url" placeholder="https://…"></div>
 <div class="field"><label>Informations complémentaires</label><textarea id="newEventNotes" placeholder="Horaires, contact, règlement, tarifs…"></textarea></div><div class="field"><label>Catégorie</label><select id="newEventCategory"><option>Concours local</option><option>Championnat régional</option><option>Championnat national</option><option>International</option><option>Concours de tonte d'agneaux</option></select></div><button class="btn" id="createEvent">Créer l'événement</button></div><div><h3>Exporter les données</h3><p class="muted small">Télécharge les données de démonstration et les résultats saisis dans cette session.</p><button class="btn ghost" id="exportData">Exporter une sauvegarde JSON</button><div class="field" style="margin-top:12px"><label>Restaurer une sauvegarde</label><input type="file" id="importData" accept="application/json,.json"></div><p class="small muted">La sauvegarde contient tes concours, inscriptions, résultats et ton profil. Elle reste indépendante d’un serveur central.</p></div></div><hr style="border:0;border-top:1px solid #292929;margin:22px 0"><h3>Gestion sportive du concours</h3><p class="muted small">Sélectionne un événement pour gérer ses inscrits et consulter ses résultats. Les données restent sur cet appareil.</p><div class="field"><label>Concours à gérer</label><select id="manageEvent"></select></div><div class="grid"><div><p class="muted small">La gestion sportive est volontairement centrée sur les concours, les compétiteurs et les résultats, sans gestion des stands.</p></div><div><div class="field"><label>Inscrire un compétiteur</label><input id="newEntry" placeholder="Nom du tondeur"></div><div class="field"><label>Catégorie d'inscription</label><input id="newEntryCategory" placeholder="Open, Senior, Junior…"></div><button class="btn" id="addEntry">Inscrire le compétiteur</button></div></div><div id="eventManagement" style="margin-top:14px"></div></div></section>
-</main><div class="footer">SHEARING FRANCE · Version 4.9 · Prototype local · Données de démonstration clairement identifiées</div>
+</main><div class="footer">SHEARING FRANCE · V8.2.2 · Plateforme collaborative<br><span style="color:#d7ad54">Consultation publique · contributions réservées aux membres connectés.</span></div>
 </div>
 
 <script>
@@ -843,6 +903,7 @@ function save(){
  try{
   data.schemaVersion=3;
   localStorage.setItem("sf_v1",JSON.stringify(data));
+  if(window.sfQueueSync) window.sfQueueSync();
   const status=$("saveStatus"); if(status) status.textContent="✓ Sauvegarde locale enregistrée";
   return true;
  }catch(err){
@@ -1381,4 +1442,92 @@ save();
   Une mise à jour est prête. <button type="button" onclick="location.reload()" style="margin-left:8px;background:#e8d8b7;color:#244638;border:0;border-radius:8px;padding:7px 10px;font-weight:800">Actualiser</button>
 </div>
 
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/* Shearing France V8.2.3 — authentification et synchronisation Supabase */
+(()=>{
+ const CFG={url:"https://pvvxyygvojhobmvngpox.supabase.co",key:"sb_publishable_I13tEmVkEnrxjplkzjkPKw_oQyMkQYY"};
+ const $=id=>document.getElementById(id); const status=(msg)=>{if($("sfCloudStatus"))$("sfCloudStatus").textContent=msg;};
+ let client=null,session=null,isAdmin=false,busy=false,remote={riders:new Map(),events:new Map(),results:new Map()};
+ const initialIds={events:new Set((data.events||[]).map(x=>String(x.id))),riders:new Set((data.riders||[]).map(x=>String(x.id))),results:new Set((data.results||[]).map(x=>String(x.id)))};
+ const uuid=()=>crypto.randomUUID?crypto.randomUUID():"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,c=>{const r=Math.random()*16|0;return(c==="x"?r:(r&3|8)).toString(16);});
+ const safeExtra=o=>{const x={...o};delete x._sfOwner;return x;};
+ const showAuth=()=>{const signed=!!session;document.querySelectorAll("[data-page=live]").forEach(b=>b.style.display=signed?"":"none");document.querySelectorAll("[data-page=admin]").forEach(b=>b.style.display=isAdmin?"":"none");if($("sfAuthControls"))$("sfAuthControls").style.display=signed?"none":"grid";if($("sfSignedControls"))$("sfSignedControls").style.display=signed?"flex":"none";if($("sfSignedEmail"))$("sfSignedEmail").textContent=session?.user?.email||"";if($("sfRoleBadge")){$("sfRoleBadge").textContent=signed?(isAdmin?"Administrateur":"Membre") : "Visiteur";$ ("sfRoleBadge").className="tag "+(isAdmin?"green":"gold");}};
+ const rows=async table=>{const {data,error}=await client.from(table).select("*");if(error)throw error;return data||[];};
+ async function pull(){
+  const [evs,riders,results]=await Promise.all([rows("events"),rows("riders"),rows("results")]);
+  remote={events:new Map(evs.filter(x=>x.legacy_id).map(x=>[x.legacy_id,x])),riders:new Map(riders.filter(x=>x.legacy_id).map(x=>[x.legacy_id,x])),results:new Map(results.filter(x=>x.legacy_id).map(x=>[x.legacy_id,x]))};
+  const byLegacy=(arr,map,kind)=>{const out=[];for(const row of arr){const extra=row.extra_data||{};const id=row.legacy_id||row.id;const base={...extra,id};if(kind==='events')Object.assign(base,{name:row.name,country:row.country,city:row.city,date:row.event_date,status:row.status,category:row.category,url:row.website_url});if(kind==='riders')Object.assign(base,{name:row.full_name,country:row.country});if(kind==='results')Object.assign(base,{name:row.rider_name_snapshot,category:row.category,round:row.round_name,rank:row.rank,time:row.time_seconds,penalty:row.penalty,points:row.points,status:extra.status||'Validé',eventId:row.event_id?(evs.find(e=>e.id===row.event_id)?.legacy_id||null):null});base._sfOwner=row.created_by||null;out.push(base);}return out;};
+  const merge=(local,server)=>{const m=new Map((local||[]).map(x=>[String(x.id),x]));for(const x of server){const old=m.get(String(x.id));m.set(String(x.id),old?{...old,...x,_sfOwner:x._sfOwner}:x);}return [...m.values()];};
+  data.events=merge(data.events,byLegacy(evs,remote.events,'events'));data.riders=merge(data.riders,byLegacy(riders,remote.riders,'riders'));data.results=merge(data.results,byLegacy(results,remote.results,'results'));
+  saveLocalOnly(); if(typeof render==='function')render();
+ }
+ function saveLocalOnly(){try{localStorage.setItem('sf_v1',JSON.stringify(data));}catch(e){console.warn(e);}}
+ async function pushTable(table,items,kind){
+  const payload=[];
+  for(const x of items||[]){const existing=remote[kind].get(String(x.id));
+   if(existing && !isAdmin && existing.created_by!==session.user.id)continue;
+   if(!existing && !isAdmin && initialIds[kind].has(String(x.id)))continue;
+   if(existing && JSON.stringify(existing.extra_data||{})===JSON.stringify(safeExtra(x)))continue;
+   const owner=existing?.created_by || x._sfOwner || session.user.id;
+   const common={id:existing?.id||uuid(),legacy_id:String(x.id),created_by:owner,extra_data:safeExtra(x)};
+   let row;
+   if(kind==='events'){const st=String(x.status||'').toLowerCase();row={...common,name:x.name||'Concours',country:x.country||'France',city:x.city||'',event_date:x.date||null,category:x.category||'',venue:x.venue||null,description:x.notes||null,website_url:x.url||null,status:st.includes('annul')?'cancelled':(st.includes('termin')||st.includes('fini')?'completed':'published'),source:x.source||'Shearing France'};}
+   if(kind==='riders')row={...common,full_name:x.name||'Nom à compléter',country:x.country||'',bio:x.bio||null,source:x.source||'Shearing France'};
+   if(kind==='results') {const ev=remote.events.get(String(x.eventId));if(!ev)continue;row={...common,event_id:ev.id,rider_id:null,rider_name_snapshot:x.name||'Nom à compléter',category:x.category||'Open',round_name:x.round||'',rank:Number.isFinite(Number(x.rank))?Number(x.rank):null,time_seconds:Number.isFinite(Number(x.time))?Number(x.time):null,penalty:Number.isFinite(Number(x.penalty))?Number(x.penalty):null,points:Number.isFinite(Number(x.points))?Number(x.points):0,notes:x.notes||null,source:x.sourceLabel||x.source||'Shearing France',published_at:x.status==='Validé'?new Date().toISOString():null};}
+   payload.push(row);
+  }
+  for(let i=0;i<payload.length;i+=100){const {data:up,error}=await client.from(table).upsert(payload.slice(i,i+100),{onConflict:'legacy_id'}).select('id,legacy_id,created_by');if(error)throw error;for(const r of up||[])remote[kind].set(r.legacy_id,r);}
+ }
+ async function sync(){if(!client||!session||busy)return;busy=true;status('Synchronisation en cours…');try{
+   const {data:a,error:ae}=await client.rpc('is_sf_admin');if(ae)throw ae;isAdmin=!!a;
+   await pushTable('events',data.events,'events');await pushTable('riders',data.riders,'riders');await pushTable('results',data.results,'results');
+   await pull();status('✓ Données synchronisées avec tous les appareils.');showAuth();
+  }catch(e){console.error('Supabase sync',e);status('⚠ Synchronisation impossible : '+(e.message||'vérifie la configuration et les droits Supabase.'));}finally{busy=false;}}
+ window.sfQueueSync=()=>{if(session&&client)sync();};
+ async function init(){
+  if(!window.supabase?.createClient){status('Service de connexion indisponible. Vérifie ta connexion internet.');return;}
+  client=window.supabase.createClient(CFG.url,CFG.key,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+  const {data:s}=await client.auth.getSession();session=s.session;
+  if(session){
+   try{const {data:a}=await client.rpc('is_sf_admin');isAdmin=!!a;await pull();status('Connecté — données partagées chargées.');}
+   catch(e){status('Connecté, mais lecture partagée impossible : '+e.message);}
+  } else {
+   try{await pull();status('Mode visiteur : données partagées chargées. Connecte-toi pour contribuer.');}
+   catch(e){status('Mode visiteur : consultation locale. Lecture partagée indisponible : '+e.message);}
+  }
+  showAuth();
+  client.auth.onAuthStateChange((_event,s)=>{session=s;setTimeout(async()=>{if(session){try{const {data:a}=await client.rpc('is_sf_admin');isAdmin=!!a;await pull();await sync();}catch(e){status('Connexion établie, synchronisation à vérifier : '+e.message);}}else{isAdmin=false;status('Déconnecté — consultation publique.');}showAuth();},0);});
+ }
+ $('sfLogin')?.addEventListener('click',async()=>{const email=$('sfAuthEmail').value.trim(),password=$('sfAuthPassword').value;if(!email||!password){status('Renseigne ton e-mail et ton mot de passe.');return;}status('Connexion…');const {error}=await client.auth.signInWithPassword({email,password});if(error)status('Connexion refusée : '+error.message);});
+ $('sfSignup')?.addEventListener('click',async()=>{const email=$('sfAuthEmail').value.trim(),password=$('sfAuthPassword').value;if(!email||password.length<8){status('Renseigne un e-mail et un mot de passe de 8 caractères minimum.');return;}status('Création du compte…');const {error}=await client.auth.signUp({email,password});if(error)status('Inscription impossible : '+error.message);else status('Compte créé. Vérifie ton e-mail si Supabase demande une confirmation.');});
+ $('sfLogout')?.addEventListener('click',async()=>{const {error}=await client.auth.signOut();if(error)status(error.message);});$('sfSync')?.addEventListener('click',sync);
+ init().catch(e=>{console.error(e);status('Initialisation impossible : '+e.message);});
+})();
+</script>
+
+
+<script>
+(function(){
+ const toggle=document.getElementById('sfMenuToggle');
+ const nav=document.getElementById('nav');
+ const backdrop=document.getElementById('sfMenuBackdrop');
+ if(!toggle||!nav||!backdrop)return;
+ function setMenu(open){
+  document.body.classList.toggle('sf-menu-open',open);
+  toggle.setAttribute('aria-expanded',String(open));
+  toggle.setAttribute('aria-label',open?'Fermer le menu':'Ouvrir le menu');
+  nav.setAttribute('aria-hidden',String(!open));
+  if(open){const first=nav.querySelector('button[data-page]');if(first)first.focus({preventScroll:true});}
+  else toggle.focus({preventScroll:true});
+ }
+ toggle.addEventListener('click',()=>setMenu(!document.body.classList.contains('sf-menu-open')));
+ backdrop.addEventListener('click',()=>setMenu(false));
+ nav.addEventListener('click',ev=>{if(ev.target.closest('button[data-page]'))setMenu(false);});
+ document.addEventListener('keydown',ev=>{if(ev.key==='Escape'&&document.body.classList.contains('sf-menu-open'))setMenu(false);});
+})();
+</script>
+
 </body></html>
+

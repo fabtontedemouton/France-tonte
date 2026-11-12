@@ -1,6 +1,6 @@
 {
-  "name": "Shearing France",
-  "short_name": "Shearing France",
+  "name": "Shearing France — ATM",
+  "short_name": "ATM",
   "description": "Compétitions, résultats et formations de tonte ovine",
   "start_url": "./index.html",
   "scope": "./",
@@ -9,9 +9,9 @@
   "theme_color": "#244638",
   "icons": [
     {
-      "src": "shearing-logo.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
+      "src": "atm-logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
       "purpose": "any maskable"
     }
   ]
