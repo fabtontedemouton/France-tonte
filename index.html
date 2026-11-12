@@ -7,7 +7,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="shearing-logo.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="shearing-logo.svg">
-<title>Shearing France — Version 8.2.3</title>
+<title>Shearing France — Version 8.2.4</title>
 <style>
 :root{--navy:#050505;--navy2:#111;--gold:#d7ad54;--cream:#f5f2eb;--ink:#f4f0e8;--muted:#aaa;--line:#292929;--green:#16845b;--red:#c44747}
 *{box-sizing:border-box}body{margin:0;background:#050505;color:var(--ink);font:15px/1.45 Inter,system-ui,Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}.shell{max-width:1180px;margin:auto;padding:18px}.hero{background:linear-gradient(120deg,#101a30,#263b5c);color:white;border-radius:20px;padding:24px;display:flex;justify-content:space-between;gap:20px;align-items:center}.brand{display:flex;align-items:center;gap:12px}.logo{background:var(--gold);color:#172238;border-radius:12px;padding:12px;font-size:25px}.eyebrow{letter-spacing:.13em;text-transform:uppercase;font-size:11px;color:#c8d1df}.hero h1{margin:3px 0;font-size:clamp(25px,4vw,38px)}.hero p{margin:4px 0;color:#d4dcea}.stats{display:flex;gap:10px;flex-wrap:wrap}.stat{background:#ffffff13;border:1px solid #ffffff22;padding:12px 16px;border-radius:12px;min-width:100px}.stat b{display:block;font-size:25px;color:#f0cc86}.stat span{font-size:12px;color:#d5deeb}.nav{display:flex;gap:7px;overflow:auto;padding:14px 0}.nav button{border:1px solid #252525;background:#101010;color:#ddd;border-radius:10px;padding:10px 15px;white-space:nowrap;font-weight:650}.nav button.active{background:#d7ad54;color:#080808}.layout{display:grid;grid-template-columns:1fr 320px;gap:16px}.panel,.card{background:#101010;border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 3px 12px #17223808}.panel h2,.card h3{margin:0 0 12px}.muted{color:var(--muted)}.small{font-size:12px}.tag{display:inline-block;padding:4px 8px;border-radius:30px;background:#edf1f6;color:#46546a;font-size:11px;font-weight:700}.tag.green{background:#e4f5ed;color:#14744f}.tag.gold{background:#f8f0df;color:#8b6423}.tag.red{background:#fdeaea;color:#a43636}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.btn{border:0;border-radius:10px;background:var(--navy);color:white;padding:10px 14px;font-weight:700}.btn.gold{background:var(--gold);color:#172238}.btn.ghost{background:#eef1f5;color:#27364e}.btn.danger{background:#a93636}.field{display:grid;gap:5px;margin:10px 0}.field label{font-size:12px;font-weight:750;color:#526176}.field input,.field select,.field textarea{width:100%;padding:10px;border:1px solid #333;border-radius:9px;background:#080808;color:var(--ink)}.field textarea{min-height:80px}.list{display:grid;gap:8px}.item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}.rank{width:28px;height:28px;border-radius:8px;background:#eef1f5;display:grid;place-items:center;font-weight:800}.grow{flex:1;min-width:0}.grow b{display:block}.rating{font-size:20px;font-weight:900;color:#9b742e}.bar{height:8px;background:#edf0f4;border-radius:10px;overflow:hidden}.bar i{display:block;height:100%;background:var(--gold);border-radius:10px}.hidden{display:none!important}.metric{display:grid;grid-template-columns:1fr 42px;gap:8px;align-items:center;margin:12px 0}.metric .bar{grid-column:1/3}.event{border:1px solid var(--line);border-radius:13px;padding:14px}.event h3{margin:7px 0}.table{width:100%;border-collapse:collapse}.table th,.table td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);font-size:13px}.table th{color:#66758b;font-size:11px;text-transform:uppercase}.notice{padding:11px;border-radius:10px;background:#fff6e6;color:#78551c;font-size:12px}.success{padding:11px;border-radius:10px;background:#e8f7ef;color:#176846;font-size:13px}.footer{text-align:center;color:#8a95a5;font-size:11px;padding:25px}.photo-preview{max-width:100%;max-height:220px;border-radius:10px;display:block;margin:10px 0}.pill{border:1px solid var(--line);border-radius:20px;padding:5px 9px;font-size:11px}
@@ -619,6 +619,41 @@ body{background:radial-gradient(ellipse at 70% -20%,#1c2717 0%,#080a08 48%);colo
  .shell>main{order:initial!important;width:100%!important}
 }
 @media(max-width:390px){.shell>.hero{padding-left:70px!important}.sf-menu-toggle{left:11px!important}}
+
+
+/* V8.2.4 — correction du décalage horizontal sur mobile */
+@media (max-width: 900px) {
+  html, body {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+  .shell {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 auto !important;
+    padding: 10px !important;
+  }
+  .shell > .hero,
+  .shell > main {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    box-sizing: border-box !important;
+  }
+}
+@media (max-width: 390px) {
+  .shell {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 8px !important;
+  }
+}
 
 </style></head>
 <body><div class="shell">
