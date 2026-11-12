@@ -18,7 +18,7 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v4
 
-      - name: Prepare current web app for Capacitor
+      - name: Prepare current web app
         run: |
           mkdir -p www
           cp index.html www/index.html
@@ -39,23 +39,20 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-
       - name: Install dependencies
         run: npm install
 
-      - name: Generate native Android project
+      - name: Generate Android project
         run: npx cap add android
 
-      - name: Synchronize current app
+      - name: Synchronize application
         run: npx cap sync android
 
       - name: Build release AAB
         working-directory: android
         run: ./gradlew bundleRelease
 
-      - name: Upload Android App Bundle
+      - name: Upload AAB
         uses: actions/upload-artifact@v4
         with:
           name: Shearing-France-AAB
