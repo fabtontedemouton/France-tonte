@@ -63,7 +63,6 @@ jobs:
         run: |
           test -n "$STORE_PASSWORD"
           test -n "$KEY_ALIAS"
-
           keytool -list \
             -keystore android/app/shearing-france-release.jks \
             -alias "$KEY_ALIAS" \
@@ -127,7 +126,10 @@ jobs:
 
       - name: Verify APK signature
         run: |
-          apksigner verify --verbose \
+          SDK="${ANDROID_HOME:-/usr/local/lib/android/sdk}"
+          APKSIGNER=$(find "$SDK/build-tools" -type f -name apksigner | sort -V | tail -n 1)
+          test -n "$APKSIGNER"
+          "$APKSIGNER" verify --verbose \
             android/app/build/outputs/apk/release/app-release.apk
 
       - name: Upload signed APK
