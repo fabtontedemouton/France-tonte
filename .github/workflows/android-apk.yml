@@ -3,7 +3,7 @@ name: Build Shearing France Android
 
 on:
   push:
-    branches: [principal, main]
+    branches: [main, principal]
   workflow_dispatch:
 
 permissions:
@@ -52,8 +52,21 @@ jobs:
         env:
           KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
         run: |
+          test -n "$KEYSTORE_BASE64"
           printf '%s' "$KEYSTORE_BASE64" | base64 --decode > android/app/shearing-france-release.jks
           test -s android/app/shearing-france-release.jks
+
+      - name: Verify release keystore
+        env:
+          STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+        run: |
+          test -n "$STORE_PASSWORD"
+          test -n "$KEY_ALIAS"
+          keytool -list \
+            -keystore android/app/shearing-france-release.jks \
+            -alias "$KEY_ALIAS" \
+            -storepass "$STORE_PASSWORD"
 
       - name: Configure Android release signing
         working-directory: android
@@ -68,7 +81,7 @@ jobs:
           p = Path("app/build.gradle")
 
           if not p.exists():
-              raise SystemExit("Fichier app/build.gradle introuvable")
+              raise SystemExit("app/build.gradle introuvable")
 
           s = p.read_text()
 
@@ -99,7 +112,10 @@ jobs:
 
           rest = s[match.end():]
 
-          if not re.search(r"(?m)^\s*signingConfig\s+signingConfigs\.release\b", rest):
+          if not re.search(
+              r"(?m)^\s*signingConfig\s+signingConfigs\.release\b",
+              rest
+          ):
               indent = match.group(1) + "        "
               s = (
                   s[:match.end()]
@@ -110,16 +126,16 @@ jobs:
 
           p.write_text(s)
           print("Configuration de signature ajoutée avec succès")
-
           PY
 
       - name: Build signed AAB
         working-directory: android
-        run: ./gradlew bundleRelease
+        run: ./gradlew bundleRelease --stacktrace --info
 
       - name: Verify AAB signature
         run: |
-          jarsigner -verify -certs android/app/build/outputs/bundle/release/app-release.aab
+          jarsigner -verify -certs \
+            android/app/build/outputs/bundle/release/app-release.aab
 
       - name: Upload signed AAB
         uses: actions/upload-artifact@v4
@@ -131,7 +147,7 @@ jobs:
 
       - name: Build signed APK
         working-directory: android
-        run: ./gradlew assembleRelease
+        run: ./gradlew assembleRelease --stacktrace --info
 
       - name: Upload signed APK
         uses: actions/upload-artifact@v4
