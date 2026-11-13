@@ -1382,7 +1382,28 @@ $("addResult").onclick=()=>{
 $("createEvent").onclick=()=>{let name=$("newEventName").value.trim(),country=$("newEventCountry").value.trim(),date=$("newEventDate").value,city=$("newEventCity").value.trim();if(!name||!country||!date){alert("Nom, pays et date sont obligatoires.");return}
  if(data.events.some(e=>e.name.trim().toLowerCase()===name.toLowerCase()&&e.date===date&&String(e.city||"").trim().toLowerCase()===city.toLowerCase())){alert("Ce concours semble déjà exister à cette date et dans cette ville.");return}
  data.events.push({id:uid(),name,country,date,city,organizer:$("newEventOrganizer").value.trim(),venue:$("newEventVenue").value.trim(),deadline:$("newEventDeadline").value,disciplines:$("newEventDisciplines").value.trim(),url:$("newEventUrl").value.trim(),notes:$("newEventNotes").value.trim(),status:"À confirmer",category:$("newEventCategory").value,entries:[]});save();render();refreshEventSelectors();$("manageEvent").value=data.events[data.events.length-1].id;renderEventManagement();alert("Concours créé. Tu peux maintenant gérer ses inscrits.");["newEventName","newEventCountry","newEventDate","newEventCity","newEventOrganizer","newEventVenue","newEventDeadline","newEventDisciplines","newEventUrl","newEventNotes"].forEach(id=>$(id).value="")};
-$("exportData").onclick=()=>{let blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="shearing-france-donnees-v1.json";a.click();URL.revokeObjectURL(a.href)};
+
+$("exportData").onclick=()=>{
+  try {
+    const json=JSON.stringify(data,null,2);
+    const blob=new Blob([json],{
+      type:"application/json;charset=utf-8"
+    });
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement("a");
+    a.href=url;
+    a.download="shearing-france-donnees-v1.json";
+    a.style.display="none";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),10000);
+  } catch(error) {
+    console.error("Erreur export :",error);
+    alert("Impossible de créer la sauvegarde. Réessaie.");
+  }
+};
+ 
 
 
 $("manageEvent")?.addEventListener("change",renderEventManagement);
