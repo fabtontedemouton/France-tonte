@@ -61,8 +61,6 @@ jobs:
           STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
         run: |
-          test -n "$STORE_PASSWORD"
-          test -n "$KEY_ALIAS"
           keytool -list \
             -keystore android/app/shearing-france-release.jks \
             -alias "$KEY_ALIAS" \
@@ -74,63 +72,32 @@ jobs:
           STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
         run: |
-          python3 - <<'PY'
-          from pathlib import Path
-          import re
+          cat >> app/build.gradle <<'GRADLE'
 
-          p = Path("app/build.gradle")
+          // Shearing France release signing
+          android {
+              signingConfigs {
+                  release {
+                      storeFile file("shearing-france-release.jks")
+                      storePassword System.getenv("STORE_PASSWORD")
+                      keyAlias System.getenv("KEY_ALIAS")
+                      keyPassword System.getenv("STORE_PASSWORD")
+                  }
+              }
 
-          if not p.exists():
-              raise SystemExit("app/build.gradle introuvable")
-
-          s = p.read_text()
-
-          signing = """    signingConfigs {
-              release {
-                  storeFile file("shearing-france-release.jks")
-                  storePassword System.getenv("STORE_PASSWORD")
-                  keyAlias System.getenv("KEY_ALIAS")
-                  keyPassword System.getenv("STORE_PASSWORD")
+              buildTypes {
+                  release {
+                      signingConfig signingConfigs.release
+                  }
               }
           }
+          GRADLE
 
-          """
-
-          if "signingConfigs {" not in s:
-              marker = re.search(r"(?m)^([ \t]*)buildTypes\s*\{", s)
-
-              if marker is None:
-                  raise SystemExit("Bloc buildTypes introuvable")
-
-              s = s[:marker.start()] + signing + s[marker.start():]
-
-          pattern = r"(?m)^([ \t]*)buildTypes\s*\{\s*release\s*\{"
-          match = re.search(pattern, s)
-
-          if match is None:
-              raise SystemExit("Bloc release introuvable")
-
-          rest = s[match.end():]
-
-          if not re.search(
-              r"(?m)^\s*signingConfig\s+signingConfigs\.release\b",
-              rest
-          ):
-              indent = match.group(1) + "        "
-              s = (
-                  s[:match.end()]
-                  + "\n"
-                  + indent + "signingConfig signingConfigs.release"
-                  + s[match.end():]
-              )
-
-          p.write_text(s)
-          print("Configuration de signature ajoutée avec succès")
-          PY
+          grep -n "signingConfig signingConfigs.release" app/build.gradle
 
       - name: Build signed AAB
         working-directory: android
-        run: ./gradlew bundleRelease --stacktrace --info
+        run: ./gradlew bundleRelease --stacktrace
 
       - name: Verify AAB signature
         run: |
@@ -147,7 +114,12 @@ jobs:
 
       - name: Build signed APK
         working-directory: android
-        run: ./gradlew assembleRelease --stacktrace --info
+        run: ./gradlew assembleRelease --stacktrace
+
+      - name: Verify APK signature
+        run: |
+          apksigner verify --verbose \
+            android/app/build/outputs/apk/release/app-release.apk
 
       - name: Upload signed APK
         uses: actions/upload-artifact@v4
