@@ -61,6 +61,9 @@ jobs:
           STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
         run: |
+          test -n "$STORE_PASSWORD"
+          test -n "$KEY_ALIAS"
+
           keytool -list \
             -keystore android/app/shearing-france-release.jks \
             -alias "$KEY_ALIAS" \
@@ -97,6 +100,9 @@ jobs:
 
       - name: Build signed AAB
         working-directory: android
+        env:
+          STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
         run: ./gradlew bundleRelease --stacktrace
 
       - name: Verify AAB signature
@@ -114,6 +120,9 @@ jobs:
 
       - name: Build signed APK
         working-directory: android
+        env:
+          STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
         run: ./gradlew assembleRelease --stacktrace
 
       - name: Verify APK signature
