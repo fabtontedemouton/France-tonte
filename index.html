@@ -1814,5 +1814,5 @@ save();
 <script>
 (function(){const rail=document.getElementById('sfScrollRail'),thumb=document.getElementById('sfScrollThumb'),topBtn=document.getElementById('sfTopButton');if(!rail||!thumb||!topBtn)return;let drag=false,startY=0,startScroll=0;function update(){const max=document.documentElement.scrollHeight-innerHeight,track=rail.clientHeight,h=Math.max(42,track*innerHeight/Math.max(document.documentElement.scrollHeight,innerHeight));thumb.style.height=h+'px';thumb.style.top=(max>0?(track-h)*scrollY/max:0)+'px';topBtn.style.opacity=scrollY>180?'1':'0.45';}window.addEventListener('scroll',update,{passive:true});window.addEventListener('resize',update);topBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));thumb.addEventListener('pointerdown',e=>{drag=true;startY=e.clientY;startScroll=scrollY;thumb.setPointerCapture(e.pointerId);e.preventDefault();});thumb.addEventListener('pointermove',e=>{if(!drag)return;const max=document.documentElement.scrollHeight-innerHeight,travel=rail.clientHeight-thumb.offsetHeight;if(travel>0)window.scrollTo(0,startScroll+(e.clientY-startY)*max/travel);});thumb.addEventListener('pointerup',()=>drag=false);thumb.addEventListener('pointercancel',()=>drag=false);update();})();
 </script>
-</body></html>
+<script src="world-v10.js"></script></body></html>
 
