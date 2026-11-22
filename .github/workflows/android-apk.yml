@@ -22,6 +22,7 @@ jobs:
         run: |
           mkdir -p www
           cp index.html www/index.html
+          cp world-v10.js www/world-v10.js
           cp manifest.webmanifest www/manifest.webmanifest
           cp sw.js www/sw.js
           cp atm-logo.png www/atm-logo.png
