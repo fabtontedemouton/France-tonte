@@ -1744,7 +1744,29 @@ save();
    await pushTable('events',data.events,'events');await pushTable('riders',data.riders,'riders');await pushTable('results',data.results,'results');
    await pull();status('✓ Données synchronisées avec tous les appareils.');showAuth();
   }catch(e){console.error('Supabase sync',e);status('⚠ Synchronisation impossible : '+(e.message||'vérifie la configuration et les droits Supabase.'));}finally{busy=false;}}
- window.sfQueueSync=()=>{if(session&&client)sync();};
+ 
+ window.sfWorldCanReview=()=>!!isAdmin;
+ window.sfWorldSubmitSource=async(payload)=>{
+  if(!client||!session)throw new Error("Connecte-toi pour proposer une source.");
+  if(!payload.source_name)throw new Error("Nom de source obligatoire.");
+  if((payload.records||[]).length>1000)throw new Error("Maximum 1000 lignes CSV par import.");
+  const row={submitted_by:session.user.id,source_name:payload.source_name,country:payload.country||null,source_url:payload.source_url||null,notes:payload.notes||null,records:payload.records||[]};
+  const {data:created,error}=await client.from("world_import_queue").insert(row).select("*").single();
+  if(error)throw error;
+  return created;
+ };
+ window.sfWorldListQueue=async()=>{
+  if(!client||!session)return [];
+  const {data:rows,error}=await client.from("world_import_queue").select("*").order("created_at",{ascending:false}).limit(100);
+  if(error)throw error;
+  return rows||[];
+ };
+ window.sfWorldReviewQueue=async(id,status,count)=>{
+  if(!client||!session||!isAdmin)throw new Error("Réservé à l'administrateur.");
+  const {error}=await client.from("world_import_queue").update({status,imported_count:count||0,reviewed_at:new Date().toISOString(),reviewed_by:session.user.id}).eq("id",id);
+  if(error)throw error;
+ };
+                   window.sfQueueSync=()=>{if(session&&client)sync();};
  async function init(){
   if(!window.supabase?.createClient){status('Service de connexion indisponible. Vérifie ta connexion internet.');return;}
   client=window.supabase.createClient(CFG.url,CFG.key,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
